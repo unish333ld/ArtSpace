@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+Авторизация
+{% endblock %}
+
+{% block content %}
+{% if form.errors %}
+<div class="alert alert-danger" role="alert">
+    Логин и пароль не совпадают. Попробуйте ещё раз!
+</div>
+
+{% endif %}
+<form method="post" action="{% url 'login' %}">
+    {% csrf_token %}
+
+    <div class="mb-3">
+        <label for="id_username" class="form-label">Логин</label>
+        <input class="form-control" type="text" name="username" autofocus autocapitalize="none" autocomplete="username"
+               maxlength="150" required id="id_username">
+    </div>
+    <div class="mb-3">
+        <label for="id_password" class="form-label">Пароль</label>
+        <input class="form-control" type="password" name="password" autocomplete="current-password" required
+               id="id_password">
+    </div>
+
+<button type="submit" class="btn btn-primary">Войти</button>
+
+</form>
+
+<a href="{% url 'register' %}">Ещё не зарегестрированы? Регестрация</a>
+
+{% endblock %}
