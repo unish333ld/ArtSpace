@@ -1,3 +1,7 @@
 from django.contrib import admin
 
-# Register your models here.
+from main.models import ProfileUser, Category, MasterClass
+
+admin.site.register(ProfileUser)
+admin.site.register(Category)
+admin.site.register(MasterClass)
