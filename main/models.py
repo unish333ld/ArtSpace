@@ -3,6 +3,7 @@ from tkinter.font import names
 from django.contrib.auth.models import User
 from django.db import models
 
+
 class ProfileUser(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     fio = models.CharField(max_length=200)
@@ -11,6 +12,14 @@ class ProfileUser(models.Model):
 
 class Category(models.Model):
     name = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.name  # или другое поле с названием
+
+
+class Tema(models.Model):
+    name = models.CharField(max_length=200)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='temas')
 
     def __str__(self):
         return self.name
@@ -30,10 +39,11 @@ class MasterClass(models.Model):
         2: "Опубликован",
         3: "Идёт проведение",
         4: "Завершён",
-        5: "Откланён",
+        5: "Отклонён",
     }
     name = models.CharField(max_length=200, verbose_name='Название мастер-класса')
     category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name='Категория')
+    tema = models.ForeignKey(Tema, on_delete=models.CASCADE, verbose_name='Тема')
     description = models.CharField(max_length=200, verbose_name='Краткое описание')
     count = models.IntegerField(verbose_name='Количество доступных мест для записи')
     date_event = models.DateField(verbose_name='Дата проведения')

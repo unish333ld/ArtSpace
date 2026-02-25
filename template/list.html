@@ -1,12 +1,67 @@
 {% extends "base.html" %}
 {% load static %}
-{% block title %}
-{{ page_name }}
-{% endblock %}
+{% block title %}{{ page_name }}{% endblock %}
 
 {% block content %}
 <h1>{{ page_name }}</h1>
 
+{% if not user.is_superuser %}
+<div class="mb-3">
+    <a class="btn btn-primary" href="{% url 'create_order' %}">Добавить мастер-класс</a>
+</div>
+{% endif %}
 
+<div class="row row-cols-1 row-cols-md-2 g-4">
+    {% for item in list %}
+    <div class="col">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">{{ item.name }}</h5>
+                <p class="card-text"><strong>Краткое описание:</strong> {{ item.description }}</p>
+                <p class="card-text"><strong>Категория:</strong> {{ item.category }}</p>
+                <p class="card-text"><strong>Количество доступных мест для записи:</strong> {{ item.count }}</p>
+                <p class="card-text"><strong>Дата проведения:</strong> {{ item.date_event }}</p>
+                <p class="card-text"><strong>Продолжительность занятия:</strong> {{ item.duration }}</p>
+                <p class="card-text"><strong>Форма обучения:</strong> {{ item.get_format_display }}</p>
+                <p class="card-text"><strong>Стоимость участия:</strong> {{ item.price }}</p>
+                <p class="card-text"><strong>Способы оплаты:</strong> {{ item.get_method_payment_display }}</p>
+                <p class="card-text"><strong>Статус:</strong> {{ item.get_status_display }}</p>
 
+                {% if user.is_superuser %}
+                <p class="card-text"><strong>Шеф-повар:</strong> {{ item.user.profileuser.fio }}</p>
+                {% endif %}
+
+                {% if item.status == 5 %}
+                <div class="alert alert-danger" role="alert">
+                    <strong>Причина отмены:</strong> {{ item.comment }}
+                </div>
+                {% endif %}
+
+                {% if user.is_superuser %}
+                <p class="card-text"><strong>Шеф-повар:</strong> {{ item.user.profileuser.fio }}</p>
+                {% endif %}
+
+                {% if user.is_superuser %}
+
+                {% if item.status == 1 %}
+                <a href="{% url 'change_status' item.pk 2 %}" class="btn btn-success">Опубликовать</a>
+                <a href="{% url 'cancel_order' item.pk %}" class="btn btn-danger">Отклонён</a>
+                {% endif %}
+
+                {% if item.status == 2 %}
+                <a href="{% url 'change_status' item.pk 3 %}" class="btn btn-info">Идёт проведение</a>
+                {% endif %}
+                {% if item.status == 3 %}
+                <a href="{% url 'change_status' item.pk 4 %}" class="btn btn-dark">Завершён</a>
+                {% endif %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="col-12">
+        <p>Мастер-классы не найдены</p>
+    </div>
+    {% endfor %}
+</div>
 {% endblock %}

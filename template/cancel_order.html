@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+Отклонение мастер-класса {{ masterclass.name }}
+{% endblock %}
+
+{% block content %}
+
+Укажите причину отлконения мастер-класса {{ masterclass.name }}:
+
+<form method="post" action="{% url 'cancel_order' masterclass.pk %}">
+    {% csrf_token %}
+    <div class="mb-3">
+        <label for="id_comment" class="form-label">Причина отмены:</label>
+        <input class="form-control" type="text" name="comment" autofocus
+               maxlength="150" required id="id_comment">
+    </div>
+
+    <button type="submit" class="btn btn-danger">Отклонить</button>
+
+</form>
+
+{% endblock %}
