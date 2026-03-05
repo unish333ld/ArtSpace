@@ -4,6 +4,7 @@
 {% block title %}Мастер-классы | Art Space{% endblock %}
 
 {% block content %}
+
 <section class="masterclass">
     <h1>Актуальные мастер-классы</h1>
 
@@ -14,7 +15,7 @@
         <p><strong>Тема:</strong> {{ mc.tema.name }}</p>
         <p><strong>Описание:</strong> {{ mc.description }}</p>
         <p><strong>Дата:</strong> {{ mc.date_event }}</p>
-        <p><strong>Продолжительность:</strong> {{ mc.duration }}</p>
+        <p><strong>Адрес:</strong> {{ mc.duration }}</p>
         <p><strong>Формат:</strong> {{ mc.get_format_display }}</p>
         <p><strong>Количество мест:</strong> {{ mc.count }}</p>
         <p><strong>Стоимость:</strong> {{ mc.price }} ₽</p>

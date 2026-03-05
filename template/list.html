@@ -21,15 +21,14 @@
                 <p class="card-text"><strong>Категория:</strong> {{ item.category }}</p>
                 <p class="card-text"><strong>Количество доступных мест для записи:</strong> {{ item.count }}</p>
                 <p class="card-text"><strong>Дата проведения:</strong> {{ item.date_event }}</p>
-                <p class="card-text"><strong>Продолжительность занятия:</strong> {{ item.duration }}</p>
-                <p class="card-text"><strong>Форма обучения:</strong> {{ item.get_format_display }}</p>
+                <p class="card-text"><strong>Адрес занятия:</strong> {{ item.duration }}</p>
                 <p class="card-text"><strong>Стоимость участия:</strong> {{ item.price }}</p>
                 <p class="card-text"><strong>Способы оплаты:</strong> {{ item.get_method_payment_display }}</p>
                 <p class="card-text"><strong>Статус:</strong> {{ item.get_status_display }}</p>
 
-                {% if user.is_superuser %}
-                <p class="card-text"><strong>Шеф-повар:</strong> {{ item.user.profileuser.fio }}</p>
-                {% endif %}
+<!--                {% if user.is_superuser %}-->
+<!--                <p class="card-text"><strong>Шеф-повар:</strong> {{ item.user.profileuser.fio }}</p>-->
+<!--                {% endif %}-->
 
                 {% if item.status == 6 %}
                 <div class="alert alert-danger" role="alert">
@@ -42,7 +41,7 @@
                 {% endif %}
 
                 {% if user.is_superuser %}
-                <p class="card-text"><strong>Шеф-повар:</strong> {{ item.user.profileuser.fio }}</p>
+                <p class="card-text"><strong>Преподаватель:</strong> {{ item.user.profileuser.fio }}</p>
                 {% endif %}
 
                 {% if user.is_superuser %}

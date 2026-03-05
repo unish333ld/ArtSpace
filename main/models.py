@@ -26,13 +26,10 @@ class Tema(models.Model):
 
 
 class MasterClass(models.Model):
-    FORMAT_CHOICES = {
-        1: "Очная встреча",
-        2: "Онлайн",
-    }
     METHODS_PAYMENT_CHOICES = {
-        1: "Банковская плата",
+        1: "Банковская карта",
         2: "Онлайн-перевод",
+        3: "Наличные",
     }
     STATUS_CHOICES = {
         1: "Черновик",
@@ -48,8 +45,7 @@ class MasterClass(models.Model):
     description = models.CharField(max_length=200, verbose_name='Краткое описание')
     count = models.IntegerField(verbose_name='Количество доступных мест для записи')
     date_event = models.DateField(verbose_name='Дата проведения')
-    duration = models.CharField(max_length=200, verbose_name='Продолжительность занятие')
-    format = models.IntegerField(choices=FORMAT_CHOICES, verbose_name='Формат')
+    duration = models.CharField(max_length=200, verbose_name='Адрес занятие')
     price = models.DecimalField(max_digits=7, decimal_places=2, verbose_name='Стоимость участия')
     method_payment = models.IntegerField(choices=METHODS_PAYMENT_CHOICES, verbose_name='Способы оплаты')
     status = models.IntegerField(choices=STATUS_CHOICES, default=1)

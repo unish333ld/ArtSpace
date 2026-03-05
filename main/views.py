@@ -12,30 +12,26 @@ def index(request):
 
 
 def register(request):
+
     if request.method == "POST":
-        # create a form instance and populate it with data from the request:
         form = RegisterForm(request.POST)
-        # check whether it's valid:
+
         if form.is_valid():
             user = form.save()
 
-            fio = request.POST['fio']
-            phone = request.POST['phone']
-
-            profile = ProfileUser()
-            profile.user = user
-            profile.phone = phone
-            profile.fio = fio
-            profile.save()
+            ProfileUser.objects.create(
+                user=user,
+                fio=form.cleaned_data["fio"],
+                phone=form.cleaned_data["phone"]
+            )
 
             login(request, user)
             return redirect("cabinet_user")
 
-    # if a GET (or any other method) we'll create a blank form
     else:
         form = RegisterForm()
-    context = {'form': form}
-    return render(request, "register.html", context)
+
+    return render(request, "register.html", {"form": form})
 
 
 def logout_view(request):
