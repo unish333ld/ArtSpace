@@ -1,8 +1,11 @@
 from django.contrib import admin
 from django.urls import path
 
-from main.views import index, logout_view, register, cabinet_user, admin_view, create_order, change_status, cancel_order
+from main.views import masterclass_list, index, logout_view, register, cabinet_user, admin_view, create_order, change_status, cancel_order
 from django.contrib.auth import views as auth_views
+
+
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -15,4 +18,6 @@ urlpatterns = [
     path('create_order/', create_order, name='create_order'),
     path("masterclass/<int:master_id>/status/<int:status_id>/", change_status, name="change_status"),
     path("masterclass/<int:master_id>/", cancel_order, name="cancel_order"),
+
+    path('masterclass/', masterclass_list, name='masterclass_list'),
 ]

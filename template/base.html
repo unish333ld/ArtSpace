@@ -21,6 +21,8 @@
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="{% url 'index' %}">Главная</a>
                 </li>
+                 <li><a class="nav-link active" aria-current="page" href="{% url 'masterclass_list' %}">Мастер-классы</a></li>
+
 
                 {% if user.is_authenticated %}
                 {% if user.is_superuser%}
@@ -64,8 +66,8 @@
 
     <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top"><p
             class="col-md-4 mb-0 text-body-secondary">© 2026 Art Space</p> <a href="../../../../index.html"
-                                                                                class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none"
-                                                                                aria-label="Bootstrap">
+                                                                              class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none"
+                                                                              aria-label="Bootstrap">
         <svg class="bi me-2" width="40" height="32" aria-hidden="true">
             <use xlink:href="#bootstrap"></use>
         </svg>

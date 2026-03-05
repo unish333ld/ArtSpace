@@ -74,17 +74,30 @@ def change_status(request, master_id, status_id):
     masterclass = get_object_or_404(MasterClass, pk=master_id)
     masterclass.status = status_id
     masterclass.save()
-    return redirect('admin_view')
+    if request.user.is_superuser:
+        return redirect('admin_view')
+    else:
+        return redirect('cabinet_user')
 
 
 def cancel_order(request, master_id):
     masterclass = get_object_or_404(MasterClass, pk=master_id)
     if request.method == 'POST':
         comment = request.POST.get('comment')
-        masterclass.status = 5
+        masterclass.status = 6
         masterclass.comment = comment
         masterclass.save()
         return redirect('admin_view')
 
     context = {'masterclass': masterclass}
     return render(request, "cancel_order.html", context)
+
+
+
+
+
+
+
+def masterclass_list(request):
+    classes = MasterClass.objects.filter(status=3).order_by('date_event')
+    return render(request, 'masterclass_list.html', {'classes': classes})

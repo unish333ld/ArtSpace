@@ -36,10 +36,11 @@ class MasterClass(models.Model):
     }
     STATUS_CHOICES = {
         1: "Черновик",
-        2: "Опубликован",
-        3: "Идёт проведение",
-        4: "Завершён",
-        5: "Отклонён",
+        2: "На модерации",
+        3: "Опубликован",
+        4: "Идёт проведение",
+        5: "Завершён",
+        6: "Отклонён",
     }
     name = models.CharField(max_length=200, verbose_name='Название мастер-класса')
     category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name='Категория')
