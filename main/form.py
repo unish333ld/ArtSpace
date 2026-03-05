@@ -48,12 +48,13 @@ class RegisterForm(UserCreationForm):
         fields = ["username", "password1", "password2", "fio", "phone", "email"]
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields["username"].widget.attrs.update({"class": "form-control"})
-        self.fields["password1"].widget.attrs.update({"class": "form-control"})
-        self.fields["password2"].widget.attrs.update({"class": "form-control"})
-        self.fields["fio"].widget.attrs.update({"class": "form-control"})
-        self.fields["phone"].widget.attrs.update({"class": "form-control"})
-        self.fields["email"].widget.attrs.update({"class": "form-control"})
+        field_style = "width: 529px; height: 80px; border-radius: 8px; background: rgba(255, 255, 255, 0.4); border: none; box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25); padding: 10px;"
+        self.fields["username"].widget.attrs.update({"class": "form-control", "style": field_style})
+        self.fields["password1"].widget.attrs.update({"class": "form-control", "style": field_style})
+        self.fields["password2"].widget.attrs.update({"class": "form-control", "style": field_style})
+        self.fields["fio"].widget.attrs.update({"class": "form-control", "style": field_style})
+        self.fields["phone"].widget.attrs.update({"class": "form-control", "style": field_style})
+        self.fields["email"].widget.attrs.update({"class": "form-control", "style": field_style})
 
 
 class MasterClassCreateForm(ModelForm):

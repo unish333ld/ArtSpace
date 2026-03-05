@@ -5,63 +5,48 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block title %}{% endblock %}</title>
+    <link rel="icon" type="image/png" href="{% static 'favicon/logo.png' %}">
     <link href="{% static 'bootstrap.min.css' %}" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@700&display=swap" rel="stylesheet">
 </head>
-<body class="d-flex flex-column min-vh-100">
+<body class="d-flex flex-column min-vh-100" style="background-color: #F8F7F3;">
 
-<nav class="navbar navbar-expand-lg" style="background-color: #f8f8f8;">
-    <div class="container">
-        <a class="navbar-brand fw-bold" href="{% url 'index' %}">Art Space</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{% url 'index' %}">Главная</a>
-                </li>
-                 <li><a class="nav-link " aria-current="page" href="{% url 'masterclass_list' %}">Мастер-классы</a></li>
-
-        <div class="d-flex">
-
-                {% if user.is_authenticated %}
-                {% if user.is_superuser%}
-
-                <li class="nav-item">
-                    <a class="nav-link active" href="{% url 'admin_view' %}">Панель администратора</a>
-                </li>
-
-                {% else %}
-
-                <li class="nav-item">
-                    <a class="nav-link active" href="{% url 'cabinet_user' %}">Личный кабинет</a>
-                </li>
-
-                {% endif %}
-
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'logout' %}">Выход</a>
-                </li>
-
-                {% endif  %}
-
-             </ul>
-      {% if not user.is_authenticated %}
-<ul class="navbar-nav ms-auto">
-                <li class="nav-item">
-                    <a class="btn btn-success me-2" href="{% url 'register' %}">Регистрация</a>
-                </li>
-                <li class="nav-item">
-                    <a class="btn btn-success" href="{% url 'login' %}">Авторизация</a>
-                </li>
-
-                {% endif %}
-</ul>
-
-            </div>
-        </div>
-
+<nav style="width: 1920px; height: 176px; display: flex; justify-content: space-between; align-items: center; padding: 24px 48px; background-color: #f8f8f8;">
+    <!-- Логотип слева -->
+    <a href="{% url 'index' %}">
+        <img src="{% static 'favicon/logo.png' %}" alt="Art Space" style="width: 128px; height: 128px; border: 1px solid #000;">
+    </a>
+    
+    <!-- Блок с кнопками навигации -->
+    <div style="width: 735px; height: 128px; display: flex; align-items: center; gap: 123px; padding: 8px 52px;">
+        <a href="{% url 'index' %}" style="width: 286px; height: 39px; font-family: Inter, sans-serif; font-weight: 400; font-size: 32px; line-height: 100%; text-align: center; text-decoration: none; color: #000;">
+            Главная страница
+        </a>
+        
+        <!-- Разделитель вертикальный -->
+        <div style="width: 1px; height: 62px; border-left: 1px solid #000;"></div>
+        
+        <a href="{% url 'masterclass_list' %}" style="width: 99px; height: 39px; font-family: Inter, sans-serif; font-weight: 400; font-size: 32px; line-height: 100%; text-align: center; text-decoration: none; color: #000;">
+            Курсы
+        </a>
+    </div>
+    
+    <!-- Кнопки авторизации/регистрации или личный кабинет -->
+    <div style="width: 467px; height: 78px; display: flex; gap: 0; padding: 8px 16px; align-items: center;">
+        {% if user.is_authenticated %}
+            {% if user.is_superuser %}
+                <a class="btn" style="background-color: #07331B; color: white; border: none; border-radius: 0; font-family: Roboto, sans-serif; font-weight: 500; font-size: 28px; line-height: 100%; letter-spacing: 0.02em; text-align: center; padding: 15px 20px; margin: 0;" href="{% url 'admin_view' %}">Панель администратора</a>
+            {% else %}
+                <a class="btn" style="background-color: #07331B; color: white; border: none; border-radius: 0; font-family: Roboto, sans-serif; font-weight: 500; font-size: 28px; line-height: 100%; letter-spacing: 0.02em; text-align: center; padding: 15px 20px; margin: 0;" href="{% url 'cabinet_user' %}">Личный кабинет</a>
+            {% endif %}
+            <a class="btn" style="background-color: #07331B; color: white; border: none; border-radius: 0; font-family: Roboto, sans-serif; font-weight: 500; font-size: 28px; line-height: 100%; letter-spacing: 0.02em; text-align: center; padding: 15px 20px; margin: 0;" href="{% url 'logout' %}">Выход</a>
+        {% else %}
+            <a class="btn" style="background-color: #07331B; color: white; border: none; border-radius: 0; font-family: Roboto, sans-serif; font-weight: 500; font-size: 28px; line-height: 100%; letter-spacing: 0.02em; text-align: center; padding: 15px 20px; margin: 0;" href="{% url 'login' %}">Вход</a>
+            <!-- Разделитель -->
+            <div style="width: 1px; height: 50px; border-left: 1px solid #FFFFFF; margin: 0;"></div>
+            <a class="btn" style="background-color: #07331B; color: white; border: none; border-radius: 0; font-family: Roboto, sans-serif; font-weight: 500; font-size: 28px; line-height: 100%; letter-spacing: 0.02em; text-align: center; padding: 15px 20px; margin: 0;" href="{% url 'register' %}">Регистрация</a>
+        {% endif %}
+    </div>
 </nav>
 
 
@@ -69,21 +54,35 @@
     {% block content %}{% endblock %}
 </main>
 
-    <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 border-top bg-success text-white"><p
-            class="col-md-4 mb-0 text-body-secondary">© 2026 Art Space</p> <a href="../../../../index.html"
-                                                                              class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none"
-                                                                              aria-label="Bootstrap">
-        <svg class="bi me-2" width="40" height="32" aria-hidden="true">
-            <use xlink:href="#bootstrap"></use>
-        </svg>
-    </a>
-        <ul class="nav col-md-4 justify-content-end">
-            <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Home</a></li>
-            <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Features</a></li>
-            <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Pricing</a></li>
-            <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">FAQs</a></li>
-            <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">About</a></li>
-        </ul>
+    <footer style="width: 1920px; background-color: #07331B; padding: 30px 0 20px 0; display: flex; flex-direction: column; gap: 20px;">
+        <!-- Верхний раздел с навигацией -->
+        <div style="display: flex; justify-content: space-between; align-items: center; padding: 0 256px;">
+            <div style="display: flex; align-items: center;">
+                <a href="{% url 'index' %}" style="font-family: 'Libre Baskerville', serif; font-weight: 700; font-size: 96px; line-height: 100%; letter-spacing: -0.02em; color: white; text-decoration: none;">
+                    Art Space
+                </a>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 12px; align-items: flex-end;">
+                <a href="{% url 'index' %}" style="font-family: Roboto, sans-serif; font-weight: 700; font-size: 20px; line-height: 100%; color: white; text-decoration: none;">
+                    Главная страница
+                </a>
+                <a href="{% url 'masterclass_list' %}" style="font-family: Roboto, sans-serif; font-weight: 700; font-size: 20px; line-height: 100%; color: white; text-decoration: none;">
+                    Курсы
+                </a>
+            </div>
+        </div>
+        
+        <!-- Нижний раздел -->
+        <div style="display: flex; justify-content: space-between; align-items: center; padding: 20px 256px 0 256px; border-top: 1px solid #FFFFFF;">
+            <p style="font-family: 'Libre Baskerville', serif; font-weight: 700; font-size: 25px; line-height: 100%; color: white; margin: 0;">© 2026 ART Space</p>
+            
+            <!-- Блок с соцсетями -->
+            <div style="display: flex; gap: 40px; align-items: center;">
+                <a href="#" style="color: white; text-decoration: none; font-size: 18px;">VK</a>
+                <a href="#" style="color: white; text-decoration: none; font-size: 18px;">TG</a>
+                <a href="#" style="color: white; text-decoration: none; font-size: 18px;">IG</a>
+            </div>
+        </div>
     </footer>
 
 <script src="{% static 'bootstrap.bundle.min.js' %}"></script>
