@@ -11,6 +11,7 @@
     {% for mc in classes %}
     <div class="card">
         <h2>{{ mc.name }}</h2>
+
         <p><strong>Категория:</strong> {{ mc.category.name }}</p>
         <p><strong>Тема:</strong> {{ mc.tema.name }}</p>
         <p><strong>Описание:</strong> {{ mc.description }}</p>
@@ -20,6 +21,11 @@
         <p><strong>Количество мест:</strong> {{ mc.count }}</p>
         <p><strong>Стоимость:</strong> {{ mc.price }} ₽</p>
         <p><strong>Способы оплаты:</strong> {{ mc.get_method_payment_display }}</p>
+        <br>
+        <p><strong>Создатель:</strong> {{ mc.user.profileuser.fio }}</p>
+        <p><strong>Телефон:</strong> {{ mc.user.profileuser.phone }}</p>
+        <p><strong>Email:</strong> {{ mc.user.email }}</p>
+
         {% if mc.comment %}
         <p><strong>Комментарий администратора:</strong> {{ mc.comment }}</p>
         {% endif %}
