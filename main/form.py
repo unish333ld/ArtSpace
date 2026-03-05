@@ -10,13 +10,7 @@ class RegisterForm(UserCreationForm):
 
     username = forms.CharField(
         label='Логин',
-        max_length=150,
-        validators=[
-            RegexValidator(
-                regex=r'^[A-Za-z0-9]{6,}$',
-                message='Логин должен содержать только латинские буквы и цифры и быть не менее 6 символов'
-            )
-        ]
+        max_length=150
     )
 
     fio = forms.CharField(
@@ -35,8 +29,8 @@ class RegisterForm(UserCreationForm):
         max_length=20,
         validators=[
             RegexValidator(
-                regex=r'^8\(\d{3}\)\d{3}-\d{2}-\d{2}$',
-                message='Телефон должен быть в формате 8(XXX)XXX-XX-XX'
+                regex=r'^\d{11}$',
+                message='Введите 11 цифр телефона'
             )
         ]
     )
@@ -46,6 +40,14 @@ class RegisterForm(UserCreationForm):
     class Meta:
         model = User
         fields = ["username", "password1", "password2", "fio", "phone", "email"]
+    
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        user.email = self.cleaned_data["email"]
+        if commit:
+            user.save()
+        return user
+    
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         field_style = "width: 529px; height: 80px; border-radius: 8px; background: rgba(255, 255, 255, 0.4); border: none; box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25); padding: 10px;"
@@ -64,9 +66,10 @@ class MasterClassCreateForm(ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-
+        field_style = "width: 529px; height: 80px; border-radius: 8px; background: rgba(255, 255, 255, 0.4); border: none; box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25); padding: 10px;"
+        
         for field in self.fields.values():
-            field.widget.attrs.update({"class": "form-control"})
+            field.widget.attrs.update({"class": "form-control", "style": field_style})
         self.fields["date_event"].widget.attrs.update({"placeholder": "ДД.ММ.ГГГГ"})
 
         # Только POST

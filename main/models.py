@@ -7,7 +7,7 @@ from django.db import models
 class ProfileUser(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     fio = models.CharField(max_length=200)
-    phone = models.CharField(max_length=15)
+    phone = models.CharField(max_length=11)
 
 
 class Category(models.Model):

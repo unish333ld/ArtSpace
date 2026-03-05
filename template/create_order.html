@@ -6,55 +6,76 @@
 
 {% block content %}
 
-<h1>Добавление мастер-класса</h1>
+<div class="d-flex justify-content-center align-items-center py-5">
+    <div style="width: 529px;">
+        <h1 class="text-center mb-4">Добавление мастер-класса</h1>
 
-<form method="post" action="{% url 'create_order' %}">
-    {% csrf_token %}
+        <form method="post" action="{% url 'create_order' %}" style="width: 529px; display: flex; flex-direction: column; gap: 64px;">
+            {% csrf_token %}
 
-    <!-- 1. Название мастер-класса -->
-    <div class="mb-3">
-        <label for="{{ form.name.id_for_label }}" class="form-label">{{ form.name.label }}</label>
-        {{ form.name }}
-    </div>
-    {% if form.name.errors %}
-    <div class="alert alert-danger" role="alert">
-        {{ form.name.errors }}
-    </div>
-    {% endif %}
+            <!-- 1. Название мастер-класса -->
+            <div style="width: 529px; height: 127px; gap: 8px; display: flex; flex-direction: column;">
+                <label for="{{ form.name.id_for_label }}" style="width: 529px; height: 39px; font-family: Inter, sans-serif; font-weight: 400; font-size: 32px; line-height: 100%; color: #000000; margin-bottom: 8px;">
+                    {{ form.name.label }}
+                </label>
+                <div style="position: relative;">
+                    {{ form.name }}
+                    {% if form.name.errors %}
+                    <div class="text-danger small mt-1" style="position: absolute; white-space: nowrap;">
+                        {{ form.name.errors }}
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
 
-    <!-- 2. Категория -->
-    <div class="mb-3">
-        <label for="{{ form.category.id_for_label }}" class="form-label">{{ form.category.label }}</label>
-        <select name="category" id="{{ form.category.id_for_label }}" class="form-control" onchange="this.form.submit()">
-            <option value="">---</option>
-            {% for cat in form.fields.category.queryset %}
-            <option value="{{ cat.id }}" {% if form.category.value|stringformat:"s" == cat.id|stringformat:"s" %}selected{% endif %}>
-                {{ cat.name }}
-            </option>
+            <!-- 2. Категория -->
+            <div style="width: 529px; height: 127px; gap: 8px; display: flex; flex-direction: column;">
+                <label for="{{ form.category.id_for_label }}" style="width: 529px; height: 39px; font-family: Inter, sans-serif; font-weight: 400; font-size: 32px; line-height: 100%; color: #000000; margin-bottom: 8px;">
+                    {{ form.category.label }}
+                </label>
+                <div style="position: relative;">
+                    <select name="category" id="{{ form.category.id_for_label }}" class="form-control" onchange="this.form.submit()" style="width: 529px; height: 80px; border-radius: 8px; background: rgba(255, 255, 255, 0.4); border: none; box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25); padding: 10px;">
+                        <option value="">---</option>
+                        {% for cat in form.fields.category.queryset %}
+                        <option value="{{ cat.id }}" {% if form.category.value|stringformat:"s" == cat.id|stringformat:"s" %}selected{% endif %}>
+                            {{ cat.name }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                    {% if form.category.errors %}
+                    <div class="text-danger small mt-1" style="position: absolute; white-space: nowrap;">
+                        {{ form.category.errors }}
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Остальные поля -->
+            {% for field in form %}
+                {% if field.name != 'category' and field.name != 'name' %}
+                <div style="width: 529px; height: 127px; gap: 8px; display: flex; flex-direction: column;">
+                    <label for="{{ field.id_for_label }}" style="width: 529px; height: 39px; font-family: Inter, sans-serif; font-weight: 400; font-size: 32px; line-height: 100%; color: #000000; margin-bottom: 8px;">
+                        {{ field.label }}
+                    </label>
+                    <div style="position: relative;">
+                        {{ field }}
+                        {% if field.errors %}
+                        <div class="text-danger small mt-1" style="position: absolute; white-space: nowrap;">
+                            {{ field.errors }}
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endif %}
             {% endfor %}
-        </select>
-    </div>
-    {% if form.category.errors %}
-    <div class="alert alert-danger" role="alert">
-        {{ form.category.errors }}
-    </div>
-    {% endif %}
 
-    <!-- Остальные поля -->
-    {% for field in form %}
-        {% if field.name != 'category' and field.name != 'name' %}
-        <div class="mb-3">
-            <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
-            {{ field }}
-        </div>
-        {% if field.errors %}
-        <div class="alert alert-danger" role="alert">
-            {{ field.errors }}
-        </div>
-        {% endif %}
-        {% endif %}
-    {% endfor %}
+            <div class="d-flex justify-content-center">
+                <button type="submit" class="btn" style="width: 217px; height: 73px; padding: 20px 24px; border: none; border-radius: 0; background-color: #07331B; color: white; font-family: Roboto, sans-serif; font-weight: 600; font-size: 28px; line-height: 100%; text-align: center;">
+                    Создать
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
 
-    <button type="submit" class="btn btn-info" style="margin-top: 10px">Создать</button>
-</form>
 {% endblock %}

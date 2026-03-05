@@ -5,31 +5,45 @@
 {% endblock %}
 
 {% block content %}
-{% if form.errors %}
-<div class="alert alert-danger" role="alert">
-    Логин и пароль не совпадают. Попробуйте ещё раз!
+
+<div class="d-flex justify-content-center align-items-center py-5">
+    <div style="width: 529px;">
+        <h1 class="text-center mb-4">Авторизация</h1>
+
+        {% if form.errors %}
+        <div class="alert alert-danger" role="alert">
+            Логин и пароль не совпадают. Попробуйте ещё раз!
+        </div>
+        {% endif %}
+
+        <form method="post" action="{% url 'login' %}" style="width: 529px; display: flex; flex-direction: column; gap: 64px;">
+            {% csrf_token %}
+
+            <div style="width: 529px; height: 127px; gap: 8px; display: flex; flex-direction: column;">
+                <label for="id_username" style="width: 529px; height: 39px; font-family: Inter, sans-serif; font-weight: 400; font-size: 32px; line-height: 100%; color: #000000; margin-bottom: 8px;">
+                    Логин
+                </label>
+                <div style="position: relative;">
+                    <input class="form-control" type="text" name="username" autofocus autocapitalize="none" autocomplete="username" maxlength="150" required id="id_username" style="width: 529px; height: 80px; border-radius: 8px; background: rgba(255, 255, 255, 0.4); border: none; box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25); padding: 10px;">
+                </div>
+            </div>
+
+            <div style="width: 529px; height: 127px; gap: 8px; display: flex; flex-direction: column;">
+                <label for="id_password" style="width: 529px; height: 39px; font-family: Inter, sans-serif; font-weight: 400; font-size: 32px; line-height: 100%; color: #000000; margin-bottom: 8px;">
+                    Пароль
+                </label>
+                <div style="position: relative;">
+                    <input class="form-control" type="password" name="password" autocomplete="current-password" required id="id_password" style="width: 529px; height: 80px; border-radius: 8px; background: rgba(255, 255, 255, 0.4); border: none; box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25); padding: 10px;">
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-center">
+                <button type="submit" class="btn" style="width: 217px; height: 73px; padding: 20px 24px; border: none; border-radius: 0; background-color: #07331B; color: white; font-family: Roboto, sans-serif; font-weight: 600; font-size: 28px; line-height: 100%; text-align: center;">
+                    Войти
+                </button>
+            </div>
+        </form>
+    </div>
 </div>
-
-{% endif %}
-<form method="post" action="{% url 'login' %}">
-    {% csrf_token %}
-
-    <div class="mb-3">
-        <label for="id_username" class="form-label">Логин</label>
-        <input class="form-control" type="text" name="username" autofocus autocapitalize="none" autocomplete="username"
-               maxlength="150" required id="id_username">
-    </div>
-    <div class="mb-3">
-        <label for="id_password" class="form-label">Пароль</label>
-        <input class="form-control" type="password" name="password" autocomplete="current-password" required
-               id="id_password">
-    </div>
-
-<button type="submit" class="btn btn-primary">Войти</button>
-
-</form>
-
-<a href="{% url 'register' %}">Ещё не зарегестрированы? Регестрация</a>
-
 
 {% endblock %}

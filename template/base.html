@@ -7,6 +7,7 @@
     <title>{% block title %}{% endblock %}</title>
     <link rel="icon" type="image/png" href="{% static 'favicon/logo.png' %}">
     <link href="{% static 'bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'custom.css' %}" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@700&display=swap" rel="stylesheet">
 </head>
 <body class="d-flex flex-column min-vh-100" style="background-color: #F8F7F3;">
@@ -24,7 +25,7 @@
         </a>
         
         <!-- Разделитель вертикальный -->
-        <div style="width: 1px; height: 62px; border-left: 1px solid #000;"></div>
+        <div style="width: 1px; height: 20px; border-left: 1px solid #000;"></div>
         
         <a href="{% url 'masterclass_list' %}" style="width: 99px; height: 39px; font-family: Inter, sans-serif; font-weight: 400; font-size: 32px; line-height: 100%; text-align: center; text-decoration: none; color: #000;">
             Курсы
@@ -43,7 +44,7 @@
         {% else %}
             <a class="btn" style="background-color: #07331B; color: white; border: none; border-radius: 0; font-family: Roboto, sans-serif; font-weight: 500; font-size: 28px; line-height: 100%; letter-spacing: 0.02em; text-align: center; padding: 15px 20px; margin: 0;" href="{% url 'login' %}">Вход</a>
             <!-- Разделитель -->
-            <div style="width: 1px; height: 50px; border-left: 1px solid #FFFFFF; margin: 0;"></div>
+            <div style="width: 1px; height: 20px; border-left: 1px solid #FFFFFF; margin: 0;"></div>
             <a class="btn" style="background-color: #07331B; color: white; border: none; border-radius: 0; font-family: Roboto, sans-serif; font-weight: 500; font-size: 28px; line-height: 100%; letter-spacing: 0.02em; text-align: center; padding: 15px 20px; margin: 0;" href="{% url 'register' %}">Регистрация</a>
         {% endif %}
     </div>
