@@ -57,7 +57,7 @@
         <!-- Верхний раздел с навигацией -->
         <div style="display: flex; justify-content: space-between; align-items: center; padding: 0 256px;">
             <div style="display: flex; align-items: center;">
-                <a href="{% url 'index' %}" style="font-family: 'Libre Baskerville', serif; font-weight: 700; font-size: 96px; line-height: 100%; letter-spacing: -0.02em; color: white; text-decoration: none;">
+                <a href="{% url 'index' %}" style="font-family: 'Libre Baskerville', serif; font-weight: 700; font-size: 56px; line-height: 100%; letter-spacing: -0.02em; color: white; text-decoration: none;">
                     Art Space
                 </a>
             </div>
@@ -73,13 +73,12 @@
         
         <!-- Нижний раздел -->
         <div style="display: flex; justify-content: space-between; align-items: center; padding: 20px 256px 0 256px; border-top: 1px solid #FFFFFF;">
-            <p style="font-family: 'Libre Baskerville', serif; font-weight: 700; font-size: 25px; line-height: 100%; color: white; margin: 0;">© 2026 ART Space</p>
+            <p style="font-family: 'Libre Baskerville', serif; font-weight: 700; font-size: 15px; line-height: 100%; color: white; margin: 0;">© 2026 ART Space</p>
             
             <!-- Блок с соцсетями -->
             <div style="display: flex; gap: 40px; align-items: center;">
-                <a href="#" style="color: white; text-decoration: none; font-size: 18px;">VK</a>
-                <a href="#" style="color: white; text-decoration: none; font-size: 18px;">TG</a>
-                <a href="#" style="color: white; text-decoration: none; font-size: 18px;">IG</a>
+                <a href="#" style="color: white; text-decoration: none; font-size: 18px;"><img src="{% static 'favicon/vk.png' %}" alt="VK" style="width:32px; height:32px;"></a>
+                <a href="#" style="color: white; text-decoration: none; font-size: 18px;"><img src="{% static 'favicon/max.png' %}" alt="MAX" style="width:32px; height:32px;"></a>
             </div>
         </div>
     </footer>
