@@ -6,10 +6,10 @@
 
 {% block content %}
 
-<div class="d-flex justify-content-center align-items-center py-5">
-    <div style="width: 529px;">
+<div class="container-fluid d-flex justify-content-center align-items-center py-5">
+    <div class="col-12 col-md-8 col-lg-6" style="max-width: 529px; padding: 0 20px;">
 
-        <form method="post" action="{% url 'create_order' %}" style="width: 529px; display: flex; flex-direction: column; gap: 64px;">
+        <form method="post" action="{% url 'create_order' %}" enctype="multipart/form-data" style="width: 529px; display: flex; flex-direction: column; gap: 64px;">
             {% csrf_token %}
 
             <!-- 1. Название мастер-класса -->

@@ -3,69 +3,78 @@
 {% block title %}{{ page_name }}{% endblock %}
 
 {% block content %}
-<h1>{{ page_name }}</h1>
+<div class="container-fluid" style="max-width: 1920px; padding: 50px 20px;">
+    <h1 style="font-family: 'Libre Baskerville', serif; font-weight: 700; font-size: clamp(32px, 5vw, 64px); line-height: 100%; letter-spacing: -0.02em; color: #000000; text-align: center; margin-bottom: 50px;">{{ page_name }}</h1>
 
-{% if not user.is_superuser %}
-<div class="mb-3">
-    <a class="btn btn-primary" href="{% url 'create_order' %}">Добавить мастер-класс</a>
-</div>
-{% endif %}
+    {% if not user.is_superuser %}
+    <div class="mb-3 text-center">
+        <a class="btn" style="background-color: #07331B; color: white; border: none; border-radius: 0; font-family: Roboto, sans-serif; font-weight: 600; font-size: 22px; line-height: 100%; letter-spacing: 0.02em; padding: 20px 24px;" href="{% url 'create_order' %}">Добавить мастер-класс</a>
+    </div>
+    {% endif %}
 
-<div class="row row-cols-1 row-cols-md-2 g-4">
-    {% for item in list %}
-    <div class="col">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">{{ item.name }}</h5>
-                <p class="card-text"><strong>Краткое описание:</strong> {{ item.description }}</p>
-                <p class="card-text"><strong>Категория:</strong> {{ item.category }}</p>
-                <p class="card-text"><strong>Количество доступных мест для записи:</strong> {{ item.count }}</p>
-                <p class="card-text"><strong>Дата проведения:</strong> {{ item.date_event }}</p>
-                <p class="card-text"><strong>Адрес занятия:</strong> {{ item.duration }}</p>
-                <p class="card-text"><strong>Стоимость участия:</strong> {{ item.price }}</p>
-                <p class="card-text"><strong>Способы оплаты:</strong> {{ item.get_method_payment_display }}</p>
-                <p class="card-text"><strong>Статус:</strong> {{ item.get_status_display }}</p>
-
-<!--                {% if user.is_superuser %}-->
-<!--                <p class="card-text"><strong>Шеф-повар:</strong> {{ item.user.profileuser.fio }}</p>-->
-<!--                {% endif %}-->
+    <div class="d-flex flex-wrap justify-content-center" style="gap: 30px;">
+        {% for item in list %}
+        <div class="course-card" style="width: 500px;">
+            <div class="course-card-inner" style="width: 500px; min-height: 700px; border-radius: 50px; background: #D9D9D9; padding: 20px; display: flex; flex-direction: column; gap: 15px;">
+                <!-- Место под картинку -->
+                <div style="width: 100%; height: 200px; background: #FFFFFF; border-radius: 30px; display: flex; align-items: center; justify-content: center; overflow: hidden;">
+                    {% if item.image %}
+                        <img src="{{ item.image.url }}" alt="{{ item.name }}" style="width: 100%; height: 100%; object-fit: cover;">
+                    {% else %}
+                        <span style="font-family: Inter, sans-serif; font-size: 18px; color: #999;">Изображение курса</span>
+                    {% endif %}
+                </div>
+                
+                <!-- Название -->
+                <h5 style="font-family: Inter, sans-serif; font-weight: 400; font-size: 28px; line-height: 120%; text-align: center; color: #000000; opacity: 0.75; margin: 10px 0;">{{ item.name }}</h5>
+                
+                <!-- Информация -->
+                <div style="display: flex; flex-direction: column; gap: 10px;">
+                    <p style="font-family: Inter, sans-serif; font-weight: 400; font-size: 16px; line-height: 120%; background: #FFFFFF; padding: 12px; border-radius: 10px; margin: 0;"><strong>Категория:</strong> {{ item.category }}</p>
+                    <p style="font-family: Inter, sans-serif; font-weight: 400; font-size: 16px; line-height: 120%; background: #FFFFFF; padding: 12px; border-radius: 10px; margin: 0;"><strong>Описание:</strong> {{ item.description }}</p>
+                    <p style="font-family: Inter, sans-serif; font-weight: 400; font-size: 16px; line-height: 120%; background: #FFFFFF; padding: 12px; border-radius: 10px; margin: 0;"><strong>Мест:</strong> {{ item.count }}</p>
+                    <p style="font-family: Inter, sans-serif; font-weight: 400; font-size: 16px; line-height: 120%; background: #FFFFFF; padding: 12px; border-radius: 10px; margin: 0;"><strong>Дата:</strong> {{ item.date_event }}</p>
+                    <p style="font-family: Inter, sans-serif; font-weight: 400; font-size: 16px; line-height: 120%; background: #FFFFFF; padding: 12px; border-radius: 10px; margin: 0;"><strong>Адрес:</strong> {{ item.duration }}</p>
+                    <p style="font-family: Inter, sans-serif; font-weight: 400; font-size: 16px; line-height: 120%; background: #FFFFFF; padding: 12px; border-radius: 10px; margin: 0;"><strong>Цена:</strong> {{ item.price }} ₽</p>
+                    <p style="font-family: Inter, sans-serif; font-weight: 400; font-size: 16px; line-height: 120%; background: #FFFFFF; padding: 12px; border-radius: 10px; margin: 0;"><strong>Оплата:</strong> {{ item.get_method_payment_display }}</p>
+                    <p style="font-family: Inter, sans-serif; font-weight: 400; font-size: 16px; line-height: 120%; background: #FFFFFF; padding: 12px; border-radius: 10px; margin: 0;"><strong>Статус:</strong> {{ item.get_status_display }}</p>
+                </div>
 
                 {% if item.status == 6 %}
-                <div class="alert alert-danger" role="alert">
+                <div class="alert alert-danger" role="alert" style="margin: 10px 0;">
                     <strong>Причина отмены:</strong> {{ item.comment }}
                 </div>
                 {% endif %}
 
                 {% if item.status == 1 %}
-                <a href="{% url 'change_status' item.pk 2 %}" class="btn btn-warning">Отправить на модерацию</a>
+                <a href="{% url 'change_status' item.pk 2 %}" style="width: 100%; max-width: 250px; height: 50px; border-radius: 18px; background: #FFFFFF; font-family: Inter, sans-serif; font-weight: 400; font-size: 16px; line-height: 100%; letter-spacing: 0%; text-align: center; color: #505050; display: flex; align-items: center; justify-content: center; text-decoration: none; margin: 10px auto 0 auto; white-space: nowrap;">Отправить на модерацию</a>
                 {% endif %}
 
                 {% if user.is_superuser %}
-                <p class="card-text"><strong>Преподаватель:</strong> {{ item.user.profileuser.fio }}</p>
+                <p style="font-family: Inter, sans-serif; font-weight: 400; font-size: 16px; line-height: 120%; background: #FFFFFF; padding: 12px; border-radius: 10px; margin: 10px 0 0 0;"><strong>Преподаватель:</strong> {{ item.user.profileuser.fio }}</p>
                 {% endif %}
 
                 {% if user.is_superuser %}
+                <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; justify-content: center;">
+                    {% if item.status == 2 %}
+                    <a href="{% url 'change_status' item.pk 3 %}" style="width: 100%; max-width: 250px; height: 50px; border-radius: 18px; background: #FFFFFF; font-family: Inter, sans-serif; font-weight: 400; font-size: 16px; line-height: 100%; letter-spacing: 0%; text-align: center; color: #505050; display: flex; align-items: center; justify-content: center; text-decoration: none; white-space: nowrap;">Опубликовать</a>
+                    <a href="{% url 'cancel_order' item.pk %}" style="width: 100%; max-width: 250px; height: 50px; border-radius: 18px; background: #FFFFFF; font-family: Inter, sans-serif; font-weight: 400; font-size: 16px; line-height: 100%; letter-spacing: 0%; text-align: center; color: #505050; display: flex; align-items: center; justify-content: center; text-decoration: none; white-space: nowrap;">Отклонён</a>
+                    {% endif %}
 
-                {% if item.status == 2 %}
-                <a href="{% url 'change_status' item.pk 3 %}" class="btn btn-success">Опубликовать</a>
-                <a href="{% url 'cancel_order' item.pk %}" class="btn btn-danger">Отклонён</a>
-                {% endif %}
-
-                {% if item.status == 3 %}
-                <a href="{% url 'change_status' item.pk 4 %}" class="btn btn-info">Идёт проведение</a>
-                {% endif %}
-                {% if item.status == 4 %}
-                <a href="{% url 'change_status' item.pk 5 %}" class="btn btn-dark">Завершён</a>
-                {% endif %}
+                    {% if item.status == 3 %}
+                    <a href="{% url 'change_status' item.pk 4 %}" style="width: 100%; max-width: 250px; height: 50px; border-radius: 18px; background: #FFFFFF; font-family: Inter, sans-serif; font-weight: 400; font-size: 16px; line-height: 100%; letter-spacing: 0%; text-align: center; color: #505050; display: flex; align-items: center; justify-content: center; text-decoration: none; white-space: nowrap;">Идёт проведение</a>
+                    {% endif %}
+                    {% if item.status == 4 %}
+                    <a href="{% url 'change_status' item.pk 5 %}" style="width: 100%; max-width: 250px; height: 50px; border-radius: 18px; background: #FFFFFF; font-family: Inter, sans-serif; font-weight: 400; font-size: 16px; line-height: 100%; letter-spacing: 0%; text-align: center; color: #505050; display: flex; align-items: center; justify-content: center; text-decoration: none; white-space: nowrap;">Завершён</a>
+                    {% endif %}
+                </div>
                 {% endif %}
             </div>
         </div>
+        {% empty %}
+        <p style="width: 100%; font-family: Roboto, sans-serif; font-weight: 300; font-size: 32px; line-height: 100%; letter-spacing: 0.02em; color: #145834; text-align: center; margin-top: 100px;">Мастер-классы не найдены</p>
+        {% endfor %}
     </div>
-    {% empty %}
-    <div class="col-12">
-        <p>Мастер-классы не найдены</p>
-    </div>
-    {% endfor %}
 </div>
 
 {% endblock %}

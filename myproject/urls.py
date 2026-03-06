@@ -1,5 +1,7 @@
 from django.contrib import admin
 from django.urls import path
+from django.conf import settings
+from django.conf.urls.static import static
 
 from main.views import masterclass_list, index, logout_view, register, cabinet_user, admin_view, create_order, change_status, cancel_order
 from django.contrib.auth import views as auth_views
@@ -21,3 +23,6 @@ urlpatterns = [
 
     path('masterclass/', masterclass_list, name='masterclass_list'),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

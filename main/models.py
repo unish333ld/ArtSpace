@@ -31,6 +31,10 @@ class MasterClass(models.Model):
         2: "Онлайн-перевод",
         3: "Наличные",
     }
+    FORMAT_CHOICES = {
+        1: "Очная встреча",
+        2: "Онлайн",
+    }
     STATUS_CHOICES = {
         1: "Черновик",
         2: "На модерации",
@@ -43,9 +47,11 @@ class MasterClass(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name='Категория')
     tema = models.ForeignKey(Tema, on_delete=models.CASCADE, verbose_name='Тема')
     description = models.CharField(max_length=200, verbose_name='Краткое описание')
+    image = models.ImageField(upload_to='masterclass_images/', verbose_name='Изображение курса', null=True, blank=True)
     count = models.IntegerField(verbose_name='Количество доступных мест для записи')
     date_event = models.DateField(verbose_name='Дата проведения')
     duration = models.CharField(max_length=200, verbose_name='Адрес занятие')
+    format = models.IntegerField(choices=FORMAT_CHOICES, verbose_name='Формат')
     price = models.DecimalField(max_digits=7, decimal_places=2, verbose_name='Стоимость участия')
     method_payment = models.IntegerField(choices=METHODS_PAYMENT_CHOICES, verbose_name='Способы оплаты')
     status = models.IntegerField(choices=STATUS_CHOICES, default=1)

@@ -53,7 +53,7 @@ def admin_view(request):
 
 def create_order(request):
     if request.method == "POST":
-        form = MasterClassCreateForm(request.POST)
+        form = MasterClassCreateForm(request.POST, request.FILES)
         if form.is_valid():
             masterclass = form.save(commit=False)
             masterclass.user = request.user

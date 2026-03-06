@@ -8,42 +8,41 @@
     <link rel="icon" type="image/png" href="{% static 'favicon/logo.png' %}">
     <link href="{% static 'bootstrap.min.css' %}" rel="stylesheet">
     <link href="{% static 'custom.css' %}" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@700&display=swap" rel="stylesheet">
 </head>
 <body class="d-flex flex-column min-vh-100" style="background-color: #F8F7F3;">
 
-<nav style="width: 1920px; height: 176px; display: flex; justify-content: space-between; align-items: center; padding: 24px 48px; background-color: #f8f8f8;">
+<nav class="container-fluid" style="max-width: 1920px; height: auto; min-height: 176px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; padding: 24px 20px; background-color: #f8f8f8;">
     <!-- Логотип слева -->
-    <a href="{% url 'index' %}">
-        <img src="{% static 'favicon/logo.png' %}" alt="Art Space" style="width: 128px; height: 128px; border: 1px solid #000;">
+    <a href="{% url 'index' %}" class="d-block">
+        <img src="{% static 'favicon/logo.png' %}" alt="Art Space" class="img-fluid" style="width: 128px; height: 128px;">
     </a>
     
     <!-- Блок с кнопками навигации -->
-    <div style="width: 735px; height: 128px; display: flex; align-items: center; gap: 123px; padding: 8px 52px;">
-        <a href="{% url 'index' %}" style="width: 286px; height: 39px; font-family: Inter, sans-serif; font-weight: 400; font-size: 32px; line-height: 100%; text-align: center; text-decoration: none; color: #000;">
+    <div class="d-flex flex-wrap align-items-center justify-content-center" style="max-width: 735px; gap: 20px; padding: 8px 20px;">
+        <a href="{% url 'index' %}" style="font-family: Inter, sans-serif; font-weight: 400; font-size: clamp(20px, 3vw, 32px); line-height: 100%; text-align: center; text-decoration: none; color: #000; white-space: nowrap;">
             Главная страница
         </a>
         
         <!-- Разделитель вертикальный -->
-        <div style="width: 1px; height: 62px; border-left: 1px solid #000;"></div>
+        <div class="d-none d-md-block" style="width: 1px; height: 62px; border-left: 1px solid #000;"></div>
         
-        <a href="{% url 'masterclass_list' %}" style="width: 99px; height: 39px; font-family: Inter, sans-serif; font-weight: 400; font-size: 32px; line-height: 100%; text-align: center; text-decoration: none; color: #000;">
+        <a href="{% url 'masterclass_list' %}" style="font-family: Inter, sans-serif; font-weight: 400; font-size: clamp(20px, 3vw, 32px); line-height: 100%; text-align: center; text-decoration: none; color: #000; white-space: nowrap;">
             Курсы
         </a>
     </div>
     
     <!-- Кнопки авторизации/регистрации или личный кабинет -->
-    <div style="width: 467px; height: 78px; display: flex; gap: 1px; padding: 8px 16px; align-items: center; position: relative;">
+    <div class="d-flex flex-wrap gap-1 align-items-center justify-content-center" style="padding: 8px 16px;">
         {% if user.is_authenticated %}
             {% if user.is_superuser %}
-                <a class="btn" style="background-color: #07331B; color: white; border: none; border-radius: 0; font-family: Roboto, sans-serif; font-weight: 500; font-size: 28px; line-height: 100%; letter-spacing: 0.02em; text-align: center; padding: 15px 20px; margin: 0;" href="{% url 'admin_view' %}">Панель администратора</a>
+                <a class="btn" style="background-color: #07331B; color: white; border: none; border-radius: 0; font-family: Roboto, sans-serif; font-weight: 500; font-size: 28px; line-height: 100%; letter-spacing: 0.02em; text-align: center; padding: 15px 20px; margin: 0; white-space: nowrap;" href="{% url 'admin_view' %}">Панель администратора</a>
             {% else %}
-                <a class="btn" style="background-color: #07331B; color: white; border: none; border-radius: 0; font-family: Roboto, sans-serif; font-weight: 500; font-size: 28px; line-height: 100%; letter-spacing: 0.02em; text-align: center; padding: 15px 20px; margin: 0;" href="{% url 'cabinet_user' %}">Личный кабинет</a>
+                <a class="btn" style="background-color: #07331B; color: white; border: none; border-radius: 0; font-family: Roboto, sans-serif; font-weight: 500; font-size: 28px; line-height: 100%; letter-spacing: 0.02em; text-align: center; padding: 15px 20px; margin: 0; white-space: nowrap;" href="{% url 'cabinet_user' %}">Личный кабинет</a>
             {% endif %}
-            <a class="btn" style="background-color: #07331B; color: white; border: none; border-radius: 0; font-family: Roboto, sans-serif; font-weight: 500; font-size: 28px; line-height: 100%; letter-spacing: 0.02em; text-align: center; padding: 15px 20px; margin: 0;" href="{% url 'logout' %}">Выход</a>
+            <a class="btn" style="background-color: #07331B; color: white; border: none; border-radius: 0; font-family: Roboto, sans-serif; font-weight: 500; font-size: 28px; line-height: 100%; letter-spacing: 0.02em; text-align: center; padding: 15px 20px; margin: 0; white-space: nowrap;" href="{% url 'logout' %}">Выход</a>
         {% else %}
-            <a class="btn" style="background-color: #07331B; color: white; border: none; border-radius: 0; font-family: Roboto, sans-serif; font-weight: 500; font-size: 28px; line-height: 100%; letter-spacing: 0.02em; text-align: center; padding: 15px 20px; margin: 0;" href="{% url 'login' %}">Вход</a>
-            <a class="btn" style="background-color: #07331B; color: white; border: none; border-radius: 0; font-family: Roboto, sans-serif; font-weight: 500; font-size: 28px; line-height: 100%; letter-spacing: 0.02em; text-align: center; padding: 15px 20px; margin: 0;" href="{% url 'register' %}">Регистрация</a>
+            <a class="btn" style="background-color: #07331B; color: white; border: none; border-radius: 0; font-family: Roboto, sans-serif; font-weight: 500; font-size: 28px; line-height: 100%; letter-spacing: 0.02em; text-align: center; padding: 15px 20px; margin: 0; white-space: nowrap;" href="{% url 'login' %}">Вход</a>
+            <a class="btn" style="background-color: #07331B; color: white; border: none; border-radius: 0; font-family: Roboto, sans-serif; font-weight: 500; font-size: 28px; line-height: 100%; letter-spacing: 0.02em; text-align: center; padding: 15px 20px; margin: 0; white-space: nowrap;" href="{% url 'register' %}">Регистрация</a>
         {% endif %}
     </div>
 </nav>
@@ -53,32 +52,36 @@
     {% block content %}{% endblock %}
 </main>
 
-    <footer style="width: 1920px; background-color: #07331B; padding: 30px 0 20px 0; display: flex; flex-direction: column; gap: 20px;">
+    <footer class="container-fluid" style="max-width: 1920px; background-color: #07331B; padding: 30px 20px 20px 20px; display: flex; flex-direction: column; gap: 20px;">
         <!-- Верхний раздел с навигацией -->
-        <div style="display: flex; justify-content: space-between; align-items: center; padding: 0 256px;">
-            <div style="display: flex; align-items: center;">
-                <a href="{% url 'index' %}" style="font-family: 'Libre Baskerville', serif; font-weight: 700; font-size: 56px; line-height: 100%; letter-spacing: -0.02em; color: white; text-decoration: none;">
+        <div class="d-flex flex-wrap justify-content-between align-items-center" style="padding: 0 20px;">
+            <div class="d-flex align-items-center mb-3 mb-md-0">
+                <a href="{% url 'index' %}" style="font-family: 'Libre Baskerville', serif; font-weight: 700; font-size: clamp(32px, 5vw, 56px); line-height: 100%; letter-spacing: -0.02em; color: white; text-decoration: none;">
                     Art Space
                 </a>
             </div>
-            <div style="display: flex; flex-direction: column; gap: 12px; align-items: flex-end;">
-                <a href="{% url 'index' %}" style="font-family: Roboto, sans-serif; font-weight: 700; font-size: 20px; line-height: 100%; color: white; text-decoration: none;">
+            <div class="d-flex flex-column gap-2 align-items-end">
+                <a href="{% url 'index' %}" style="font-family: Roboto, sans-serif; font-weight: 700; font-size: 16px; line-height: 100%; color: white; text-decoration: none;">
                     Главная страница
                 </a>
-                <a href="{% url 'masterclass_list' %}" style="font-family: Roboto, sans-serif; font-weight: 700; font-size: 20px; line-height: 100%; color: white; text-decoration: none;">
+                <a href="{% url 'masterclass_list' %}" style="font-family: Roboto, sans-serif; font-weight: 700; font-size: 16px; line-height: 100%; color: white; text-decoration: none;">
                     Курсы
                 </a>
             </div>
         </div>
         
         <!-- Нижний раздел -->
-        <div style="display: flex; justify-content: space-between; align-items: center; padding: 20px 256px 0 256px; border-top: 1px solid #FFFFFF;">
+        <div class="d-flex flex-wrap justify-content-between align-items-center" style="padding: 20px 20px 0 20px; border-top: 1px solid #FFFFFF;">
             <p style="font-family: 'Libre Baskerville', serif; font-weight: 700; font-size: 15px; line-height: 100%; color: white; margin: 0;">© 2026 ART Space</p>
             
             <!-- Блок с соцсетями -->
-            <div style="display: flex; gap: 40px; align-items: center;">
-                <a href="#" style="color: white; text-decoration: none; font-size: 18px;"><img src="{% static 'favicon/vk.png' %}" alt="VK" style="width:32px; height:32px;"></a>
-                <a href="#" style="color: white; text-decoration: none; font-size: 18px;"><img src="{% static 'favicon/max.png' %}" alt="MAX" style="width:32px; height:32px;"></a>
+            <div class="d-flex gap-3 align-items-center mt-3 mt-md-0">
+                <a href="https://vk.com" target="_blank">
+                    <img src="{% static 'images/Vk-logo.png' %}" alt="VK" class="img-fluid" style="height: 40px;">
+                </a>
+                <a href="https://max.ru/" target="_blank">
+                    <img src="{% static 'images/Max-logo.png' %}" alt="Telegram" class="img-fluid" style="height: 40px;">
+                </a>
             </div>
         </div>
     </footer>
